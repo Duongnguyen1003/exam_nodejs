@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="">
+        <h2>Thêm sách</h2>
+        <div>
+            <label for="">title</label>
+            <br>
+            <input type="text" name="" id="title">
+        </div>
+        <div>
+            <label for="">image</label>
+            <br>
+            <input type="text" name="" id="image">
+        </div>
+        <div>
+            <label for="">description</label>
+            <br>
+            <input type="text" name="" id="description">
+        </div>
+        <div>
+            <label for="">author</label>
+            <br>
+            <input type="text" name="" id="author">
+        </div>
+        <div>
+            <label for="">category</label>
+            <br>
+            <input type="text" name="" id="category">
+        </div>
+        <button id="btn">Thêm sản phẩm</button>
+    </form>
+    <script>
+        let btn = document.querySelector('#btn')
+        btn.addEventListener('click', async (element) => {
+            element.preventDefault()
+            await fetch('http://localhost:5000/api/product/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title: document.querySelector('#title').value,
+                    description: document.querySelector('#description').value,
+                    image: document.querySelector('#image').value,
+                    author: document.querySelector('#author').value,
+                    category: document.querySelector('#category').value
+                }),
+            })
+                .then(res => res.json())
+                .then(() => {
+                    window.location.href = "./index.html"
+                })
+        })
+    </script>
+</body>
+
+</html>

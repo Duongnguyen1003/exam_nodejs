@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./dist/css/tailwind.css">
+</head>
+
+<body>
+    <script>
+        async function productDetail() {
+            // const productId = (id) => {
+            //     const urlId = new URLSearchParams(window.location.search)
+            //     return urlId.get(id)
+            // };
+            const product = await fetch(`http://localhost:5000/product/60f9b00a21d4f75b78e2d273`)
+                .then(response => response.json());
+            console.log(product);
+            let productContent = /*html*/`<article class="border p-5">
+                                            <img src="${product.image}" alt="">
+                                            <p class="text-xl text-center my-2 font-semibold">${product.title}</p>
+                                            <div class="flex justify-between">
+                                                <div class="flex justify-between">
+                                                    <span>Tác giả:</span>
+                                                    <span class="pl-2">${product.category}</span>
+                                                </div>
+                                                <div class="flex justify-between">
+                                                    <span>Thể loại:</span>
+                                                    <span class="pl-2">${product.category}</span>
+                                                </div>
+                                            </div>
+                                            <p class="my-2">${product.description}</p>
+                                        </article>`;
+            document.querySelector('.product-item').innerHTML = productContent
+        }
+        productDetail();
+    </script>
+</body>
+
+</html>

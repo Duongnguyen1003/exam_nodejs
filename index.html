@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./dist/css/tailwind.css">
+</head>
+
+<body class="container mx-auto">
+    <section class="flex justify-center items-center">
+        <h2 class="font-semibold text-5xl text-center my-10 font-mono  px-20">Danh sách</h2>
+        <a href="add.html">Thêm sản phẩm</a>
+    </section>
+    <main class="root grid grid-cols-4 gap-10"></main>
+    <!-- <script src="./pages/listProduct.js"></script> -->
+    <script>
+        async function listProduct() {
+            const product = await fetch('http://localhost:5000/api/products')
+                .then(res => res.json())
+                .then(data => {
+                    let screen = data.map((product) => {
+                        // console.log(product.image)
+                        return /*html*/`
+                            <article class="border p-5">
+                                <img src="${product.image}" alt="">
+                                <p class="text-xl text-center my-2 font-semibold">${product.title}</p>
+                                <div class="flex justify-between">
+                                    <div class="flex justify-between">
+                                        <span>Tác giả:</span>
+                                        <span class="pl-2">${product.category}</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Thể loại:</span>
+                                        <span class="pl-2">${product.category}</span>
+                                    </div>
+                                </div>
+                                <p class="my-2">${product.description}</p>
+                            </article>
+                        `
+                    }).join('');
+                    document.querySelector('.root').innerHTML = screen;
+                })
+        }
+        listProduct()
+    </script>
+</body>
+
+</html>
